@@ -1,6 +1,6 @@
 # Mercado Pago Plugin for Better Auth
 
-![CI Status](https://github.com/ivantsxx/better-auth-mercadopago/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/IvanTsxx/better-auth-mercadopago-plugin/actions/workflows/ci.yml/badge.svg)
 ![NPM Version](https://img.shields.io/npm/v/better-auth-mercadopago)
 ![License](https://img.shields.io/npm/l/better-auth-mercadopago)
 
