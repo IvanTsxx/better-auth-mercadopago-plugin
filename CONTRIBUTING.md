@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to `@better-auth/mercadopago`!
+Thanks for your interest in contributing to `better-auth-mercadopago`!
 
 ## Getting Started
 

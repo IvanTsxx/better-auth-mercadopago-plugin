@@ -1,10 +1,10 @@
 // Example: Complete Next.js App with Mercado Pago Plugin
 
-import { mercadoPago } from "@better-auth/mercadopago";
 // ============================================
 // 1. auth.ts (Server)
 // ============================================
 import { betterAuth } from "better-auth";
+import { mercadoPago } from "better-auth-mercadopago";
 import Database from "better-sqlite3";
 
 export const auth = betterAuth({
@@ -31,11 +31,11 @@ export const auth = betterAuth({
 	],
 });
 
-import { mercadoPagoClient } from "@better-auth/mercadopago/client";
 // ============================================
 // 2. auth-client.ts (Client)
 // ============================================
 import { createAuthClient } from "better-auth/client";
+import { mercadoPagoClient } from "better-auth-mercadopago/client";
 
 export const authClient = createAuthClient({
 	baseURL: "http://localhost:3000",

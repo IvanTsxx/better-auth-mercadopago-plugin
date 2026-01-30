@@ -19,11 +19,11 @@ A robust and type-safe Mercado Pago plugin for [Better Auth](https://better-auth
 ## Installation
 
 ```bash
-pnpm add @better-auth/mercadopago
+pnpm add better-auth-mercadopago
 # or
-npm install @better-auth/mercadopago
+npm install better-auth-mercadopago
 # or
-yarn add @better-auth/mercadopago
+yarn add better-auth-mercadopago
 ```
 
 ## Quick Start
@@ -34,7 +34,7 @@ Add the plugin to your Better Auth configuration. You need your Mercado Pago Acc
 
 ```typescript
 import { betterAuth } from "better-auth";
-import { mercadoPagoPlugin } from "@better-auth/mercadopago";
+import { mercadoPagoPlugin } from "better-auth-mercadopago";
 
 export const auth = betterAuth({
     // ... other config
@@ -59,7 +59,7 @@ The plugin exposes client-side methods to create payments and subscriptions.
 
 ```typescript
 import { createAuthClient } from "better-auth/client";
-import { mercadoPagoClient } from "@better-auth/mercadopago/client";
+import { mercadoPagoClient } from "better-auth-mercadopago/client";
 
 const authClient = createAuthClient({
     plugins: [mercadoPagoClient()]
