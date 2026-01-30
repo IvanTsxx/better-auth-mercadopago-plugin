@@ -1,5 +1,4 @@
-import type { Payment, PreApproval } from "mercadopago";
-
+/** biome-ignore-all lint/suspicious/noExplicitAny: <no need to use any> */
 export interface MercadoPagoPluginOptions {
 	/**
 	 * Your Mercado Pago access token
