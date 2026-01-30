@@ -1,5 +1,11 @@
 # better-auth-mercadopago
 
+## 0.1.4
+
+### Patch Changes
+
+- 31a0418: fix-github-action
+
 ## 0.1.3
 
 ### Patch Changes
