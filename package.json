@@ -1,0 +1,66 @@
+{
+	"name": "@better-auth/mercadopago",
+	"version": "0.1.0",
+	"description": "Mercado Pago plugin for Better Auth - Simple payments, subscriptions and split payments",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./client": {
+			"import": "./dist/client.mjs",
+			"require": "./dist/client.js",
+			"types": "./dist/client.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"typecheck": "tsc --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"test": "vitest run"
+	},
+	"keywords": [
+		"better-auth",
+		"better-auth-plugin",
+		"better-auth-mercadopago",
+		"better-auth-mercadopago-plugin",
+		"@better-auth/mercadopago",
+		"@better-auth/mercadopago-plugin",
+		"@better-auth/mercadopago-plugin-mercadopago",
+		"mercadopago",
+		"payments",
+		"subscriptions",
+		"auth",
+		"authentication"
+	],
+	"author": "IvanTsxx",
+	"license": "MIT",
+	"peerDependencies": {
+		"better-auth": "^1.0.0"
+	},
+	"dependencies": {
+		"@types/mercadopago": "^1.5.11",
+		"mercadopago": "^2.0.0",
+		"zod": "^3.22.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.13",
+		"@changesets/cli": "^2.29.8",
+		"@types/node": "^20.0.0",
+		"better-auth": "^1.0.0",
+		"tsup": "^8.0.0",
+		"typescript": "^5.3.0",
+		"vitest": "^4.0.18"
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"SECURITY.md"
+	]
+}
