@@ -1,6 +1,6 @@
 {
 	"name": "better-auth-mercadopago",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"description": "Mercado Pago plugin for Better Auth - Simple payments, subscriptions and split payments",
 	"publishConfig": {
 		"access": "public"
