@@ -1,5 +1,11 @@
 # better-auth-mercadopago
 
+## 0.1.8
+
+### Patch Changes
+
+- 79b98d9: rename and type plugin client
+
 ## 0.1.7
 
 ### Patch Changes
