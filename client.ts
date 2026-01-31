@@ -123,7 +123,7 @@ export type MercadoPagoClient = MercadoPagoClientActions;
 
 export const mercadoPagoClient = () => {
 	return {
-		id: "mercadoPago",
+		id: "mercadopago",
 		$InferServerPlugin: {} as ReturnType<typeof mercadoPagoPlugin>,
 
 		getActions: ($fetch: any): MercadoPagoClientActions => ({

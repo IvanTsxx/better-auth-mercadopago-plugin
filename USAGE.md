@@ -56,7 +56,7 @@ export function BuyButton() {
 	const handleBuy = async () => {
 		setLoading(true);
 
-		const { data, error } = await authClient.mercadoPago.createPayment({
+		const { data, error } = await authClient.mercadopago.createPayment({
 			items: [
 				{
 					title: "Premium Plan - Monthly",
@@ -144,7 +144,7 @@ import { authClient } from "@/lib/auth-client";
 
 export function SubscribeButton({ planId }: { planId: string }) {
 	const handleSubscribe = async () => {
-		const { data } = await authClient.mercadoPago.createSubscription({
+		const { data } = await authClient.mercadopago.createSubscription({
 			planId,
 			metadata: {
 				source: "website",

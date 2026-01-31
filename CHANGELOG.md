@@ -1,5 +1,13 @@
 # better-auth-mercadopago
 
+## 0.1.7
+
+### Patch Changes
+
+- Fix plugin ID casing so the plugin is mounted under `authClient.mercadopago` instead of `authClient.mercadoPago`.
+
+  This fixes a bug where the plugin ID used camelCase which caused mismatches with expected client property names. Tests were added/updated to validate the plugin structure.
+
 ## 0.1.6
 
 ### Patch Changes

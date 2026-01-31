@@ -48,7 +48,7 @@ export const mercadoPagoPlugin = (options: MercadoPagoPluginOptions) => {
 	const preApprovalPlanClient = new PreApprovalPlan(client);
 
 	return {
-		id: "mercadoPago",
+		id: "mercadopago",
 
 		schema: {
 			// Customer table - stores MP customer info
