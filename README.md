@@ -191,38 +191,183 @@ The plugin defines the following table:
 ### Creating a One-Time Payment
 
 ```typescript
-import { authClient } from "./auth-client";
+"use client";
 
-async function createPayment() {
-  const { data, error } = await authClient.mercadoPago.createPayment({
-    items: [
-      {
-        id: "prod_123",
-        title: "Premium Plan",
-        quantity: 1,
-        unitPrice: 99.99,
-        currencyId: "ARS",
-      },
-    ],
-    back_urls: {
-      success: "https://yourdomain.com/payments/success",
-      failure: "https://yourdomain.com/payments/failure",
-      pending: "https://yourdomain.com/payments/pending",
-    },
-    metadata: {
-      orderId: "order_456",
-      customerNote: "Please gift wrap",
-    },
-  });
+import { CheckCircle2, CreditCard, ExternalLink, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { authClient } from "@/lib/auth-client";
 
-  if (error) {
-    console.error("Payment creation failed:", error);
-    return;
-  }
+const items = [
+  {
+    id: "test-payment-1",
+    title: "Pago de Prueba",
+    quantity: 2,
+    unitPrice: 1,
+    currencyId: "ARS",
+  },
+  {
+    id: "test-payment-2",
+    title: "Pago de Prueba 2",
+    quantity: 1,
+    unitPrice: 1,
+    currencyId: "ARS",
+  },
+];
 
-  // Redirect to Mercado Pago checkout
-  window.location.href = data.checkoutUrl;
+export function PaymentOneTimeClient() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{
+    preferenceId: string;
+    checkoutUrl: string;
+  } | null>(null);
+
+  const totalAmount = items.reduce(
+    (total, item) => total + item.quantity * item.unitPrice,
+    0,
+  );
+
+  const handleCreatePayment = async () => {
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      const response = await authClient.mercadoPago.createPayment({
+        items,
+        back_urls: {
+          success: `${process.env.NEXT_PUBLIC_APP_URL}/payments/one-time?status=success`,
+          failure: `${process.env.NEXT_PUBLIC_APP_URL}/payments/one-time?status=failure`,
+          pending: `${process.env.NEXT_PUBLIC_APP_URL}/payments/one-time?status=pending`,
+        },
+      });
+
+      if (response.error) {
+        setError(response.error.message || "Error al crear el pago");
+        return;
+      }
+
+      if (response.data) {
+        setResult({
+          preferenceId: response.data.preferenceId,
+          checkoutUrl: response.data.checkoutUrl,
+        });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error desconocido");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="mx-auto w-full space-y-6">
+      {/* Resumen */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <CreditCard className="h-5 w-5" />
+            Pago único
+          </CardTitle>
+          <CardDescription>
+            Se creará una preferencia de pago en Mercado Pago
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div className="space-y-3 rounded-xl border bg-muted/40 p-4">
+            {items.map((item) => (
+              <div key={item.id} className="flex items-start justify-between">
+                <div>
+                  <p className="font-medium">{item.title}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {item.quantity} × ${item.unitPrice} {item.currencyId}
+                  </p>
+                </div>
+                <span className="font-medium text-sm">
+                  ${item.quantity * item.unitPrice} {item.currencyId}
+                </span>
+              </div>
+            ))}
+
+            <Separator />
+
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Total</span>
+              <span className="font-semibold text-base">
+                ${totalAmount} ARS
+              </span>
+            </div>
+          </div>
+
+          <Button
+            onClick={handleCreatePayment}
+            disabled={loading}
+            size="lg"
+            className="w-full"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creando pago…
+              </>
+            ) : (
+              "Continuar con Mercado Pago"
+            )}
+          </Button>
+
+          {error && (
+            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-destructive text-sm">
+              {error}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Resultado */}
+      {result && (
+        <Card className="border-green-500/30">
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-green-600">
+              <CheckCircle2 className="h-5 w-5" />
+              Pago creado
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className="space-y-4">
+            <div className="text-sm">
+              <span className="text-muted-foreground">Preference ID</span>
+              <code className="mt-1 block rounded bg-muted px-2 py-1 text-xs">
+                {result.preferenceId}
+              </code>
+            </div>
+
+            <a
+              href={result.checkoutUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="w-full">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                Abrir checkout
+              </Button>
+            </a>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
 }
+
 ```
 
 ### Handling Webhooks
