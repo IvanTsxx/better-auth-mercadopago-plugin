@@ -79,7 +79,8 @@ describe("Mercado Pago Plugin Endpoints", () => {
 
 	describe("createPayment", () => {
 		it("should create a preference and return checkoutUrl", async () => {
-			const endpoint = findEndpoint("/mercado-pago/payment/create", "POST");
+			// ✅ ACTUALIZADO: Ruta antigua -> nueva
+			const endpoint = findEndpoint("/mercado-pago/create-payment", "POST");
 			expect(endpoint).toBeDefined();
 
 			const mockPreferenceResponse = {
@@ -146,8 +147,9 @@ describe("Mercado Pago Plugin Endpoints", () => {
 
 	describe("createSubscription", () => {
 		it("should create a subscription with autoRecurring logic (no preapproval plan)", async () => {
+			// ✅ ACTUALIZADO: Ruta antigua -> nueva
 			const endpoint = findEndpoint(
-				"/mercado-pago/subscription/create",
+				"/mercado-pago/create-subscription",
 				"POST",
 			);
 			expect(endpoint).toBeDefined();
@@ -203,8 +205,9 @@ describe("Mercado Pago Plugin Endpoints", () => {
 		});
 
 		it("should create a subscription using an existing preapproval plan", async () => {
+			// ✅ ACTUALIZADO: Ruta antigua -> nueva
 			const endpoint = findEndpoint(
-				"/mercado-pago/subscription/create",
+				"/mercado-pago/create-subscription",
 				"POST",
 			);
 			expect(endpoint).toBeDefined();
