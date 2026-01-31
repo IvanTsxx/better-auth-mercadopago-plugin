@@ -1,5 +1,6 @@
 import type {
 	BetterAuthClientPlugin,
+	BetterFetch,
 	BetterFetchOption,
 } from "better-auth/client";
 import type { mercadoPagoPlugin } from "./index";
@@ -118,15 +119,17 @@ export interface MercadoPagoClientActions {
 	) => Promise<OAuthTokenResponse>;
 }
 
+type mercadopagoPlugin = typeof mercadoPagoPlugin;
+
 // Export the actions type for Better Auth type inference
 export type MercadoPagoClient = MercadoPagoClientActions;
 
-export const mercadoPagoClient = () => {
+export const mercadoPagoClientPlugin = () => {
 	return {
 		id: "mercadopago",
-		$InferServerPlugin: {} as ReturnType<typeof mercadoPagoPlugin>,
+		$InferServerPlugin: {} as ReturnType<mercadopagoPlugin>,
 
-		getActions: ($fetch: any): MercadoPagoClientActions => ({
+		getActions: ($fetch: BetterFetch): MercadoPagoClientActions => ({
 			/**
 			 * Get or create a Mercado Pago customer for the authenticated user
 			 */
