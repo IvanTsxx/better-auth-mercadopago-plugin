@@ -22,7 +22,8 @@
 		"typecheck": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"test": "vitest run"
+		"test": "vitest run",
+		"prepublishOnly": "pnpm run build"
 	},
 	"keywords": [
 		"better-auth",

@@ -1,0 +1,28 @@
+# Archivos de desarrollo que NO deben publicarse
+src/
+tests/
+.github/
+.vscode/
+.changeset/
+
+# Archivos de configuración
+tsconfig.json
+biome.json
+.gitignore
+
+# Archivos de documentación interna
+CONTRIBUTING.md
+USAGE.md
+SOCIAL_MEDIA.md
+
+# Archivos de dependencias
+node_modules/
+pnpm-lock.yaml
+
+# Archivos de entorno
+.env
+.env.*
+
+# Archivos temporales
+*.log
+.build/
