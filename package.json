@@ -2,22 +2,15 @@
 	"name": "better-auth-mercadopago",
 	"version": "0.1.8",
 	"description": "Mercado Pago plugin for Better Auth - Simple payments, subscriptions and split payments",
-	"publishConfig": {
-		"access": "public"
-	},
 	"main": "./dist/index.js",
-	"module": "./dist/index.mjs",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
+			"import": "./dist/index.js",
 			"require": "./dist/index.js"
-		},
-		"./client": {
-			"types": "./dist/client.d.ts",
-			"import": "./dist/client.mjs",
-			"require": "./dist/client.js"
 		}
 	},
 	"repository": {
@@ -25,8 +18,7 @@
 		"url": "git+https://github.com/ivantsxx/better-auth-mercadopago.git"
 	},
 	"scripts": {
-		"build": "tsup",
-		"dev": "tsup --watch",
+		"build": "pnpm run typecheck && pnpm run build",
 		"typecheck": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
@@ -62,14 +54,14 @@
 		"@changesets/cli": "^2.29.8",
 		"@types/node": "^20.0.0",
 		"better-auth": "^1.0.0",
-		"tsup": "^8.0.0",
 		"typescript": "^5.3.0",
 		"vitest": "^4.0.18"
 	},
 	"files": [
 		"dist",
 		"README.md",
-		"SECURITY.md"
+		"SECURITY.md",
+		"CHANGELOG.md"
 	],
 	"pnpm": {
 		"onlyBuiltDependencies": [

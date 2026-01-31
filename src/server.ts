@@ -25,7 +25,6 @@ import {
 	validatePaymentAmount,
 	verifyWebhookSignature,
 } from "./security";
-
 import type {
 	MercadoPagoCustomerRecord,
 	MercadoPagoPaymentRecord,
@@ -181,7 +180,6 @@ export const mercadoPagoPlugin = (options: MercadoPagoPluginOptions) => {
 				},
 			},
 		},
-
 		endpoints: {
 			// Get or create customer automatically
 			getOrCreateCustomer: createAuthEndpoint(
@@ -327,7 +325,13 @@ export const mercadoPagoPlugin = (options: MercadoPagoPluginOptions) => {
 						});
 					}
 
-					const tokenData = await tokenResponse.json();
+					const tokenData = (await tokenResponse.json()) as {
+						access_token: string;
+						refresh_token: string;
+						public_key: string;
+						user_id: number;
+						expires_in: number;
+					};
 
 					// Save OAuth token
 					const oauthToken = await ctx.context.adapter.create({
@@ -668,7 +672,7 @@ export const mercadoPagoPlugin = (options: MercadoPagoPluginOptions) => {
 							preferenceId: preference.id,
 							status: "pending",
 							amount: totalAmount,
-							currency: items[0].currencyId,
+							currency: items[0]?.currencyId || "ARS",
 							metadata: JSON.stringify(sanitizedMetadata),
 							createdAt: new Date(),
 							updatedAt: new Date(),
@@ -1363,13 +1367,5 @@ export const mercadoPagoPlugin = (options: MercadoPagoPluginOptions) => {
 				},
 			),
 		},
-
-		// Add trusted origins from options
-		...(options.trustedOrigins && { trustedOrigins: options.trustedOrigins }),
 	} satisfies BetterAuthPlugin;
 };
-
-// Re-export the client type for convenience
-export type { MercadoPagoClient, MercadoPagoClientActions } from "./client";
-export * from "./client";
-export * from "./types";

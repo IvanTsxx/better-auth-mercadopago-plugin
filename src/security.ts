@@ -212,7 +212,7 @@ export const MercadoPagoErrorCodes = {
 export class MercadoPagoError extends Error {
 	constructor(
 		public code: string,
-		public message: string,
+		public override message: string,
 		public statusCode: number = 400,
 		// biome-ignore lint/suspicious/noExplicitAny: <necessary>
 		public details?: any,
